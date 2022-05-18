@@ -2,95 +2,18 @@
 
 <head>
     <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style type="text/css">
-        .collapsible {
-            background-color: #00669E;
-            color: #ffffff;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-        }
-        
-        .collapsible:hover {
-            background-color: #0087D1!important;
-            color: #ffffff;
-        }
-        
-        .active {
-            background-color: #00669E !important;
-        }
-        
-        .content {
-            padding: 0px 18px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.2s ease-out;
-            background-color: #f5f5f5!important
-        }
-        
-        .content-info {
-            padding: 0.5em 0.2em;
-            margin: 0.2em;
-            color: #00669E
-        }
-        
-        .toggle-open::after {
-            content: "\ff0b";
-            margin-right: 0.5em;
-        }
-        
-        .active .toggle-open::after {
-            content: "\ff0d";
-        }
-        
-        .panel-margin {
-            margin-bottom: 10px;
-        }
-    </style>
 </head>
 
 <body>
-    <button class="collapsible panel-margin"><span class="toggle-open">&nbsp;</span>Panel 1</button>
-    <div class="content">
-        <p class="content-info">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
+    {% for item in people limit:10 %}
+    <div data-loaded="0" onclick="if($(this).attr('data-loaded') == '0') { FW.Lazy.Fetch('?cmd=person_detail&amp;id={{item.id}}', $('#div_person_detail_{{item.id}}')); $(this).attr('data-loaded', '1');} $(this).next().show('toggle'); return (false);" style="padding: 10px; margin: 10px 5px; background-color: #00669E; color: #FFFFFF; cursor: pointer;">
+        {{item.name}} ({{item.state}})
     </div>
-    <button class="collapsible panel-margin"><span class="toggle-open">&nbsp;</span>Panel 2</button>
 
-    <div class="content">
-        <p class="content-info">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
+    <div class="hidden" id="div_person_detail_{{item.id}}">
+        <em>Loading....</em>
     </div>
-    <button class="collapsible panel-margin"><span class="toggle-open">&nbsp;</span>Panel 3</button>
-
-    <div class="content">
-        <p class="content-info">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
-    </div>
-    <script type="text/javascript">
-        var coll = document.getElementsByClassName("collapsible");
-        var i;
-
-        for (i = 0; i < coll.length; i++) {
-            coll[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                }
-            });
-        }
-    </script>
+    {% endfor %}
 </body>
 
 </html>
