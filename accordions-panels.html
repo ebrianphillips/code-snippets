@@ -6,7 +6,13 @@
 
 <body>
     {% for item in people limit:10 %}
-    <div data-loaded="0" onclick="if($(this).attr('data-loaded') == '0') { FW.Lazy.Fetch('?cmd=person_detail&amp;id={{item.id}}', $('#div_person_detail_{{item.id}}')); $(this).attr('data-loaded', '1');} $(this).next().show('toggle'); return (false);" style="padding: 10px; margin: 10px 5px; background-color: #00669E; color: #FFFFFF; cursor: pointer;">
+    <div data-loaded="0" onclick="if($(this).attr('data-loaded') == '0') { 
+        FW.Lazy.Fetch('?cmd=person_detail&amp;id={{item.id}}', 
+        $('#div_person_detail_{{item.id}}')); 
+        $(this).attr('data-loaded', '1');
+    } 
+        $(this).next().show('toggle'); 
+        return (false);" style="padding: 10px; margin: 10px 5px; background-color: #00669E; color: #FFFFFF; cursor: pointer;">
         {{item.name}} ({{item.state}})
     </div>
 
